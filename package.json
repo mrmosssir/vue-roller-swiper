@@ -1,0 +1,54 @@
+{
+  "name": "@mrmosssir/vue-roller-swiper",
+  "version": "0.0.1",
+  "description": "A Vue.js component library",
+  "type": "module",
+  "main": "./dist/vue-roller-swiper.umd.js",
+  "module": "./dist/vue-roller-swiper.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/vue-roller-swiper.es.js",
+      "require": "./dist/vue-roller-swiper.umd.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./dist/style.css": "./dist/style.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && vue-tsc --emitDeclarationOnly",
+    "build:lib": "vite build --mode lib",
+    "preview": "vite preview",
+    "type-check": "vue-tsc --noEmit"
+  },
+  "keywords": [
+    "vue",
+    "vue3",
+    "component",
+    "swiper",
+    "roller"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  },
+  "dependencies": {
+    "vue": "^3.5.22"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@vitejs/plugin-vue": "^4.5.2",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.8",
+    "vite-plugin-dts": "^3.6.4",
+    "vue-tsc": "^1.8.25"
+  }
+}
