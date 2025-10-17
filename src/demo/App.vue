@@ -16,7 +16,7 @@
 import { ref } from "vue";
 import RollerSwiper from "../components/RollerSwiper.vue";
 
-const list = ref([1, 2, 3, 4, 5]);
+const list = ref([1, 2, 3]);
 const swiperRef = ref<InstanceType<typeof RollerSwiper> | null>(null);
 </script>
 

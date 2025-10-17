@@ -54,12 +54,9 @@ const props = defineProps({
 
 const slots = useSlots();
 
-// test data
-const list = ref(5);
-
 const current = ref(1);
-const prevIndex = ref(current.value === 1 ? list.value : current.value - 1);
-const nextIndex = ref(current.value === list.value ? 1 : current.value + 1);
+const prevIndex = ref(0);
+const nextIndex = ref(0);
 
 const controlsDebounce = ref(false);
 const interval = ref<NodeJS.Timeout | null>(null);
@@ -76,18 +73,22 @@ const directMethodsMap = computed(() => {
 });
 
 const setEnableSlider = () => {
-  prevIndex.value = current.value === 1 ? list.value : current.value - 1;
-  nextIndex.value = current.value === list.value ? 1 : current.value + 1;
+  prevIndex.value =
+    current.value === 1 ? sliderSlots.value.length : current.value - 1;
+  nextIndex.value =
+    current.value === sliderSlots.value.length ? 1 : current.value + 1;
 };
 
 const prev = async () => {
-  current.value = current.value === list.value ? 1 : current.value + 1;
+  current.value =
+    current.value === sliderSlots.value.length ? 1 : current.value + 1;
   setEnableSlider();
   controlsDebounce.value = true;
 };
 
 const next = () => {
-  current.value = current.value === 1 ? list.value : current.value - 1;
+  current.value =
+    current.value === 1 ? sliderSlots.value.length : current.value - 1;
   setEnableSlider();
   controlsDebounce.value = true;
 };
@@ -97,13 +98,13 @@ const jump = async (target: number) => {
   const nextDistance =
     target > current.value
       ? target - current.value
-      : list.value - current.value + target;
+      : sliderSlots.value.length - current.value + target;
 
   // 計算反向距離（prev 方向）
   const prevDistance =
     current.value > target
       ? current.value - target
-      : current.value + (list.value - target);
+      : current.value + (sliderSlots.value.length - target);
 
   // 選擇最短路徑(true: next, false: prev)
   const direct = nextDistance <= prevDistance;
@@ -115,6 +116,11 @@ const jump = async (target: number) => {
 };
 
 onMounted(() => {
+  prevIndex.value =
+    current.value === 1 ? sliderSlots.value.length : current.value - 1;
+  nextIndex.value =
+    current.value === sliderSlots.value.length ? 1 : current.value + 1;
+
   // 有開啟 autoPlay 就啟動 interval
   if (props.autoPlay) {
     interval.value = setInterval(() => {
