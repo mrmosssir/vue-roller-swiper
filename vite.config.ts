@@ -8,7 +8,15 @@ export default defineConfig(({ mode }) => {
   if (mode === "lib") {
     // Library build mode
     return {
-      plugins: [vue(), dts()],
+      plugins: [
+        vue(),
+        dts({
+          insertTypesEntry: true,
+          include: ["src/**/*"],
+          exclude: ["src/demo/**/*"],
+          rollupTypes: true,
+        }),
+      ],
       build: {
         lib: {
           entry: resolve(__dirname, "src/index.ts"),

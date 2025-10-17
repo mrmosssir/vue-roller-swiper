@@ -1,7 +1,7 @@
 {
-  "name": "@mrmosssir/vue-roller-swiper",
-  "version": "0.0.1",
-  "description": "A Vue.js component library",
+  "name": "vue-roller-swiper",
+  "version": "0.0.3",
+  "description": "A modern Vue 3 carousel component with arc motion effects, touch gestures, and smooth animations.",
   "type": "module",
   "main": "./dist/vue-roller-swiper.umd.js",
   "module": "./dist/vue-roller-swiper.es.js",
@@ -17,6 +17,9 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build && vue-tsc --emitDeclarationOnly",
