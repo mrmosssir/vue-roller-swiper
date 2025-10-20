@@ -60,8 +60,8 @@ import { ref } from "vue";
 const swiperRef = ref();
 
 // Jump to specific slide
-const jumpToSlide = (index) => {
-  swiperRef.value?.jump(index);
+const setSlide = (index) => {
+  swiperRef.value?.set(index);
 };
 </script>
 ```
@@ -70,11 +70,13 @@ const jumpToSlide = (index) => {
 
 ### Props
 
-| Prop       | Type    | Default | Description                     |
-| ---------- | ------- | ------- | ------------------------------- |
-| `autoPlay` | Boolean | `false` | Enable automatic slideshow      |
-| `delay`    | Number  | `3000`  | Auto play delay in milliseconds |
-| `ccw`      | Boolean | `false` | Swiper make ccw roller          |
+| Prop           | Type    | Default | Description                     |
+| -------------- | ------- | ------- | ------------------------------- |
+| `autoPlay`     | Boolean | `false` | Enable automatic slideshow      |
+| `delay`        | Number  | `3000`  | Auto play delay in milliseconds |
+| `ccw`          | Boolean | `false` | Swiper make ccw roller          |
+| `duration`     | Number  | `300`   | Swiper animation duration       |
+| `showControls` | Boolean | `true`  | Show navigation controls        |
 
 ### Slots
 
@@ -103,11 +105,11 @@ You can also use with v-for:
 
 Access these methods via template ref:
 
-| Method        | Parameters      | Description                                 |
-| ------------- | --------------- | ------------------------------------------- |
-| `next()`      | -               | Move to next slide                          |
-| `prev()`      | -               | Move to previous slide                      |
-| `jump(index)` | `index: number` | Jump to specific slide (uses shortest path) |
+| Method       | Parameters      | Description                                 |
+| ------------ | --------------- | ------------------------------------------- |
+| `next()`     | -               | Move to next slide                          |
+| `prev()`     | -               | Move to previous slide                      |
+| `set(index)` | `index: number` | Jump to specific slide (uses shortest path) |
 
 ### Example with Methods
 

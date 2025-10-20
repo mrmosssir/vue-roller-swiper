@@ -1,15 +1,21 @@
 <template>
-  <div class="roller-swiper">
+  <div
+    class="roller-swiper"
+    :style="{
+      '--roller-swiper__duration': props.duration + 'ms',
+      '--roller-swiper__direction': props.ccw ? -1 : 1,
+    }"
+  >
     <div class="roller-swiper__wrapper">
       <template v-for="(slot, index) in sliderSlots" :key="slot">
         <div
           class="roller-swiper__slider"
-          v-if="[prevIndex, current, nextIndex].includes(index + 1)"
-          :data-id="index + 1"
+          v-if="[prevIndex, current, nextIndex].includes(index)"
+          :data-id="index"
           :class="{
-            'roller-swiper__slider--prev': index + 1 === prevIndex,
-            'roller-swiper__slider--active': index + 1 === current,
-            'roller-swiper__slider--next': index + 1 === nextIndex,
+            'roller-swiper__slider--prev': index === prevIndex,
+            'roller-swiper__slider--active': index === current,
+            'roller-swiper__slider--next': index === nextIndex,
           }"
         >
           <div class="roller-swiper__slider--inner">
@@ -18,16 +24,19 @@
         </div>
       </template>
     </div>
-    <div class="roller-swiper__control" v-if="sliderSlots.length > 1">
+    <div
+      class="roller-swiper__control"
+      v-if="sliderSlots.length > 1 && props.showControls"
+    >
       <slot name="prev">
-        <button class="roller-swiper__prev" @click="directMethodsMap.prev">
-          <
+        <button class="roller-swiper__prev" @click="handleChangeSlider('prev')">
+          &#9650
         </button>
       </slot>
 
       <slot name="next">
-        <button class="roller-swiper__next" @click="directMethodsMap.next">
-          >
+        <button class="roller-swiper__next" @click="handleChangeSlider('next')">
+          &#9660
         </button>
       </slot>
     </div>
@@ -35,29 +44,43 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, useSlots } from "vue";
+import { ref, computed, onBeforeMount, onBeforeUnmount, useSlots } from "vue";
 
 const props = defineProps({
+  // Enable automatic slideshow
   autoPlay: {
     type: Boolean,
-    default: false,
+    default: true,
   },
+  // Auto play delay in milliseconds
   delay: {
     type: Number,
     default: 3000,
   },
+  // Swiper make ccw roller
   ccw: {
     type: Boolean,
     default: false,
+  },
+  // Animation duration in milliseconds
+  duration: {
+    type: Number,
+    default: 300,
+  },
+  // Show controls
+  showControls: {
+    type: Boolean,
+    default: true,
   },
 });
 
 const slots = useSlots();
 
-const current = ref(1);
+const current = ref(0);
 const prevIndex = ref(0);
 const nextIndex = ref(0);
 
+const animationDebounce = ref(false);
 const controlsDebounce = ref(false);
 const interval = ref<NodeJS.Timeout | null>(null);
 
@@ -65,75 +88,89 @@ const sliderSlots = computed(() => {
   return Object.keys(slots).filter((slot) => slot.startsWith("slider-"));
 });
 
-const directMethodsMap = computed(() => {
-  return {
-    prev: props.ccw ? next : prev,
-    next: props.ccw ? prev : next,
-  };
-});
+const handleChangeSlider = async (direction: "prev" | "next") => {
+  // Check animation debounce
+  if (animationDebounce.value) return;
 
-const setEnableSlider = () => {
+  // Set animation in progress
+  animationDebounce.value = true;
+
+  // Set current index based on direction
+  current.value = direction === "prev" ? prevIndex.value : nextIndex.value;
   prevIndex.value =
-    current.value === 1 ? sliderSlots.value.length : current.value - 1;
-  nextIndex.value =
-    current.value === sliderSlots.value.length ? 1 : current.value + 1;
-};
+    (current.value - 1 + sliderSlots.value.length) % sliderSlots.value.length;
+  nextIndex.value = (current.value + 1) % sliderSlots.value.length;
 
-const prev = async () => {
-  current.value =
-    current.value === sliderSlots.value.length ? 1 : current.value + 1;
-  setEnableSlider();
+  // Set auto play controls debounce
   controlsDebounce.value = true;
+
+  // Set false after animation duration
+  await new Promise((resolve) => setTimeout(resolve, props.duration));
+  animationDebounce.value = false;
 };
 
-const next = () => {
-  current.value =
-    current.value === 1 ? sliderSlots.value.length : current.value - 1;
-  setEnableSlider();
+const set = async (target: number) => {
+  // Check animation debounce && current slider is not target
+  if (animationDebounce.value || current.value === target) return;
+
+  // Set animation in progress and auto play debounce
+  animationDebounce.value = true;
   controlsDebounce.value = true;
-};
 
-const jump = async (target: number) => {
-  // 計算正向距離（next 方向）
+  // Calculate forward distance (next direction)
   const nextDistance =
     target > current.value
       ? target - current.value
       : sliderSlots.value.length - current.value + target;
 
-  // 計算反向距離（prev 方向）
+  // Calculate backward distance (prev direction)
   const prevDistance =
     current.value > target
       ? current.value - target
       : current.value + (sliderSlots.value.length - target);
 
-  // 選擇最短路徑(true: next, false: prev)
-  const direct = nextDistance <= prevDistance;
-
+  // Do roller while not reach target
   while (current.value !== target) {
-    direct ? directMethodsMap.value.next() : directMethodsMap.value.prev();
-    await new Promise((resolve) => setTimeout(resolve, 250));
+    current.value =
+      nextDistance > prevDistance ? prevIndex.value : nextIndex.value;
+    prevIndex.value =
+      (current.value - 1 + sliderSlots.value.length) % sliderSlots.value.length;
+    nextIndex.value = (current.value + 1) % sliderSlots.value.length;
+    await new Promise((resolve) => setTimeout(resolve, props.duration));
   }
+
+  animationDebounce.value = false;
 };
 
-onMounted(() => {
+onBeforeMount(() => {
   prevIndex.value =
-    current.value === 1 ? sliderSlots.value.length : current.value - 1;
-  nextIndex.value =
-    current.value === sliderSlots.value.length ? 1 : current.value + 1;
+    (current.value - 1 + sliderSlots.value.length) % sliderSlots.value.length;
+  nextIndex.value = (current.value + 1) % sliderSlots.value.length;
 
-  // 有開啟 autoPlay 就啟動 interval
+  // Start interval if autoPlay is enabled
   if (props.autoPlay) {
     interval.value = setInterval(() => {
       if (controlsDebounce.value) {
         controlsDebounce.value = false;
         return;
       }
-      next();
+      handleChangeSlider("next");
     }, props.delay);
   }
 });
 
-defineExpose({ prev, next, jump });
+onBeforeUnmount(() => {
+  // Clear interval on component unmount
+  if (interval.value) {
+    clearInterval(interval.value);
+  }
+});
+
+defineExpose({
+  prev: handleChangeSlider("prev"),
+  next: handleChangeSlider("next"),
+  set,
+});
 </script>
 
 <style scoped>
@@ -162,37 +199,40 @@ defineExpose({ prev, next, jump });
 .roller-swiper__slider--inner {
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .roller-swiper__slider--prev {
   transform: translateX(-30%);
-  transition: all 0.3s cubic-bezier(0.11, 0, 0.5, 0);
+  transition: all var(--roller-swiper__duration) cubic-bezier(0.11, 0, 0.5, 0);
 }
 
 .roller-swiper__slider--prev .roller-swiper__slider--inner {
-  transform: translateY(-100%);
-  transition: all 0.3s cubic-bezier(0.5, 1, 0.89, 1);
+  transform: translateY(calc(100% * var(--roller-swiper__direction)));
+  transition: all var(--roller-swiper__duration) cubic-bezier(0.5, 1, 0.89, 1);
 }
 
 .roller-swiper__slider--active {
   transform: translateX(0);
   opacity: 1;
-  transition: all 0.3s cubic-bezier(0.5, 1, 0.89, 1);
+  transition: all var(--roller-swiper__duration) cubic-bezier(0.5, 1, 0.89, 1);
 }
 
 .roller-swiper__slider--active .roller-swiper__slider--inner {
   transform: translateY(0);
-  transition: all 0.3s cubic-bezier(0.11, 0, 0.5, 0);
+  transition: all var(--roller-swiper__duration) cubic-bezier(0.11, 0, 0.5, 0);
 }
 
 .roller-swiper__slider--next {
   transform: translateX(-30%);
-  transition: all 0.3s cubic-bezier(0.11, 0, 0.5, 0);
+  transition: all var(--roller-swiper__duration) cubic-bezier(0.11, 0, 0.5, 0);
 }
 
 .roller-swiper__slider--next .roller-swiper__slider--inner {
-  transform: translateY(100%);
-  transition: all 0.3s cubic-bezier(0.5, 1, 0.89, 1);
+  transform: translateY(calc(-100% * var(--roller-swiper__direction)));
+  transition: all var(--roller-swiper__duration) cubic-bezier(0.5, 1, 0.89, 1);
 }
 
 .roller-swiper__control {
@@ -211,7 +251,7 @@ defineExpose({ prev, next, jump });
   border-width: 0;
   width: 36px;
   height: 36px;
-  transform: rotate(90deg);
   cursor: pointer;
+  color: gray;
 }
 </style>
