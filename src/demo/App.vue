@@ -22,14 +22,14 @@ const swiperRef = ref<InstanceType<typeof RollerSwiper> | null>(null);
 
 <style scoped>
 .container {
-  width: 520px;
+  width: 800px;
   aspect-ratio: 1;
   margin: 0 auto;
 }
 
 .slider-demo {
-  width: 100%;
-  height: 100%;
+  width: 300px;
+  height: 300px;
   border-radius: 50%;
   background: #000;
 }

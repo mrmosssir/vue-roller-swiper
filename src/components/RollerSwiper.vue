@@ -18,16 +18,16 @@
         </div>
       </template>
     </div>
-    <div class="roller-swiper__control">
+    <div class="roller-swiper__control" v-if="sliderSlots.length > 1">
       <slot name="prev">
         <button class="roller-swiper__prev" @click="directMethodsMap.prev">
-          PREV
+          <
         </button>
       </slot>
 
       <slot name="next">
         <button class="roller-swiper__next" @click="directMethodsMap.next">
-          NEXT
+          >
         </button>
       </slot>
     </div>
@@ -157,53 +157,61 @@ defineExpose({ prev, next, jump });
   opacity: 0;
   top: 0;
   left: 0;
-  transition: all 0.3s cubic-bezier(0.5, 1, 0.89, 1);
 }
 
 .roller-swiper__slider--inner {
   width: 100%;
   height: 100%;
-  transition: all 0.3s cubic-bezier(0.11, 0, 0.5, 0);
 }
-
-/* .roller-swiper__slider::after {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 100%;
-  background-color: black;
-  border-radius: 50%;
-  transition: all 0.3s cubic-bezier(0.11, 0, 0.5, 0);
-} */
 
 .roller-swiper__slider--prev {
   transform: translateX(-30%);
+  transition: all 0.3s cubic-bezier(0.11, 0, 0.5, 0);
 }
 
 .roller-swiper__slider--prev .roller-swiper__slider--inner {
   transform: translateY(-100%);
+  transition: all 0.3s cubic-bezier(0.5, 1, 0.89, 1);
 }
 
 .roller-swiper__slider--active {
   transform: translateX(0);
   opacity: 1;
+  transition: all 0.3s cubic-bezier(0.5, 1, 0.89, 1);
 }
 
 .roller-swiper__slider--active .roller-swiper__slider--inner {
   transform: translateY(0);
+  transition: all 0.3s cubic-bezier(0.11, 0, 0.5, 0);
 }
 
 .roller-swiper__slider--next {
   transform: translateX(-30%);
+  transition: all 0.3s cubic-bezier(0.11, 0, 0.5, 0);
 }
 
 .roller-swiper__slider--next .roller-swiper__slider--inner {
   transform: translateY(100%);
+  transition: all 0.3s cubic-bezier(0.5, 1, 0.89, 1);
 }
 
 .roller-swiper__control {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   position: absolute;
-  top: 0;
+  top: 50%;
   right: 0;
+  transform: translateY(-50%);
+}
+
+.roller-swiper__prev,
+.roller-swiper__next {
+  border-radius: 50%;
+  border-width: 0;
+  width: 36px;
+  height: 36px;
+  transform: rotate(90deg);
+  cursor: pointer;
 }
 </style>
