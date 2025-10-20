@@ -74,6 +74,7 @@ const jumpToSlide = (index) => {
 | ---------- | ------- | ------- | ------------------------------- |
 | `autoPlay` | Boolean | `false` | Enable automatic slideshow      |
 | `delay`    | Number  | `3000`  | Auto play delay in milliseconds |
+| `ccw`      | Boolean | `false` | Swiper make ccw roller          |
 
 ### Slots
 
@@ -85,6 +86,16 @@ The component uses named slots for content:
   <template #slider-2>Your second slide content</template>
   <template #slider-3>Your third slide content</template>
   <!-- Add more slides as needed -->
+</RollerSwiper>
+```
+
+You can also use with v-for:
+
+```vue
+<RollerSwiper>
+  <template v-for="index in num" v-slot:[`slider-${index}`]>
+    Your slide content
+  </template>
 </RollerSwiper>
 ```
 
@@ -154,23 +165,6 @@ The component comes with default styles, but you can customize them:
 .roller-swiper__slider--active {
   /* Active slide styles */
 }
-```
-
-## 🛠️ Development
-
-### Project Structure
-
-```
-vue-roller-swiper/
-├── src/
-│   ├── components/
-│   │   └── RollerSwiper.vue    # Main component
-│   ├── demo/
-│   │   ├── App.vue             # Demo page
-│   │   └── main.ts             # Demo entry
-│   └── index.ts                # Library entry point
-├── dist/                       # Built files
-└── package.json
 ```
 
 ## 🤝 Contributing
