@@ -1,6 +1,6 @@
 {
   "name": "vue-roller-swiper",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "A modern Vue 3 carousel component with arc motion effects, touch gestures, and smooth animations.",
   "type": "module",
   "main": "./dist/vue-roller-swiper.umd.js",
@@ -38,8 +38,9 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/mrmosssir/vue-roller-swiper.git"
   },
+  "homepage": "https://github.com/mrmosssir/vue-roller-swiper",
   "peerDependencies": {
     "vue": "^3.0.0"
   },
