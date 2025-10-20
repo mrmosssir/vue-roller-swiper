@@ -2,8 +2,8 @@
 
 A modern Vue 3 carousel component with arc motion effects, touch gestures, and smooth animations.
 
-[![NPM Version](https://img.shields.io/npm/v/@mrmosssir/vue-roller-swiper.svg?style=flat)](https://npmjs.org/package/@mrmosssir/vue-roller-swiper)
-[![NPM Downloads](https://img.shields.io/npm/dm/@mrmosssir/vue-roller-swiper.svg?style=flat)](https://npmjs.org/package/@mrmosssir/vue-roller-swiper)
+[![NPM Version](https://img.shields.io/npm/v/vue-roller-swiper.svg?style=flat)](https://npmjs.org/package/vue-roller-swiper)
+[![NPM Downloads](https://img.shields.io/npm/dm/vue-roller-swiper.svg?style=flat)](https://npmjs.org/package/vue-roller-swiper)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## ✨ Features
