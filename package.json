@@ -1,8 +1,9 @@
 {
   "name": "vue-roller-swiper",
   "version": "0.0.7",
-  "description": "A modern Vue 3 carousel component with arc motion effects, touch gestures, and smooth animations.",
   "type": "module",
+  "packageManager": "pnpm@10.18.3",
+  "description": "A modern Vue 3 carousel component with arc motion effects, touch gestures, and smooth animations.",
   "main": "./dist/vue-roller-swiper.umd.js",
   "module": "./dist/vue-roller-swiper.es.js",
   "types": "./dist/index.d.ts",
@@ -48,11 +49,11 @@
     "vue": "^3.5.22"
   },
   "devDependencies": {
-    "@types/node": "^20.10.0",
-    "@vitejs/plugin-vue": "^4.5.2",
-    "typescript": "^5.3.3",
-    "vite": "^5.0.8",
-    "vite-plugin-dts": "^3.6.4",
-    "vue-tsc": "^1.8.25"
+    "@types/node": "^20.19.22",
+    "@vitejs/plugin-vue": "^4.6.2",
+    "typescript": "^5.9.3",
+    "vite": "^5.4.21",
+    "vite-plugin-dts": "^3.9.1",
+    "vue-tsc": "^1.8.27"
   }
 }
