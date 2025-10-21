@@ -27,7 +27,7 @@
     "build:lib": "vite build --mode lib",
     "preview": "vite preview",
     "type-check": "vue-tsc --noEmit",
-    "changelog": "npx conventional-changelog -p angular -i CHANGELOG.md -s -n .conventionalchangelog.config.js"
+    "changelog": "npx conventional-changelog -p angular -i CHANGELOG.md -s -n .conventional-changelog.config.cjs"
   },
   "keywords": [
     "vue",
