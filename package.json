@@ -1,6 +1,6 @@
 {
   "name": "vue-roller-swiper",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "type": "module",
   "packageManager": "pnpm@10.18.3",
   "description": "A modern Vue 3 carousel component with arc motion effects, touch gestures, and smooth animations.",
@@ -27,7 +27,7 @@
     "build:lib": "vite build --mode lib",
     "preview": "vite preview",
     "type-check": "vue-tsc --noEmit",
-    "changelog": "npx conventional-changelog -p angular -i CHANGELOG.md -s"
+    "changelog": "npx conventional-changelog -p angular -i CHANGELOG.md -s -n .conventionalchangelog.config.js"
   },
   "keywords": [
     "vue",
