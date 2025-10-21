@@ -57,7 +57,7 @@ const props = defineProps({
     type: Number,
     default: 3000,
   },
-  // Swiper make ccw roller
+  // Enable counter-clockwise rotation
   ccw: {
     type: Boolean,
     default: false,
@@ -67,7 +67,7 @@ const props = defineProps({
     type: Number,
     default: 300,
   },
-  // Show controls
+  // Show navigation controls
   showControls: {
     type: Boolean,
     default: true,
@@ -167,8 +167,8 @@ onBeforeUnmount(() => {
 });
 
 defineExpose({
-  prev: handleChangeSlider("prev"),
-  next: handleChangeSlider("next"),
+  prev: () => handleChangeSlider("prev"),
+  next: () => handleChangeSlider("next"),
   set,
 });
 </script>

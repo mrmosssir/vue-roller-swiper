@@ -70,13 +70,13 @@ const setSlide = (index) => {
 
 ### Props
 
-| Prop           | Type    | Default | Description                     |
-| -------------- | ------- | ------- | ------------------------------- |
-| `autoPlay`     | Boolean | `false` | Enable automatic slideshow      |
-| `delay`        | Number  | `3000`  | Auto play delay in milliseconds |
-| `ccw`          | Boolean | `false` | Swiper make ccw roller          |
-| `duration`     | Number  | `300`   | Swiper animation duration       |
-| `showControls` | Boolean | `true`  | Show navigation controls        |
+| Prop           | Type    | Default | Description                        |
+| -------------- | ------- | ------- | ---------------------------------- |
+| `autoPlay`     | Boolean | `false` | Enable automatic slideshow         |
+| `delay`        | Number  | `3000`  | Auto play delay in milliseconds    |
+| `ccw`          | Boolean | `false` | Enable counter-clockwise rotation  |
+| `duration`     | Number  | `300`   | Animation duration in milliseconds |
+| `showControls` | Boolean | `true`  | Show navigation controls           |
 
 ### Slots
 
