@@ -5,6 +5,7 @@
       '--roller-swiper__duration': props.duration + 'ms',
       '--roller-swiper__direction': props.ccw ? -1 : 1,
     }"
+    ref="rollerSwiperRef"
   >
     <div class="roller-swiper__wrapper">
       <template v-for="(slot, index) in sliderSlots" :key="slot">
@@ -44,7 +45,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onBeforeMount, onBeforeUnmount, useSlots } from "vue";
+import { ref, computed, onBeforeMount, onBeforeUnmount, useSlots, watch } from "vue";
+import { useDraggable } from "@/composables/useDraggable";
 
 const props = defineProps({
   // Enable automatic slideshow
@@ -74,7 +76,12 @@ const props = defineProps({
   },
 });
 
+const rollerSwiperRef = ref<HTMLElement | null>(null);
+
 const slots = useSlots();
+useDraggable(rollerSwiperRef, (direction) => {
+  handleChangeSlider(direction ? "prev" : "next");
+});
 
 const current = ref(0);
 const prevIndex = ref(0);
@@ -178,6 +185,13 @@ defineExpose({
   width: inherit;
   height: 100%;
   position: relative;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: grab;
 }
 
 .roller-swiper__wrapper {
