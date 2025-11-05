@@ -1,3 +1,9 @@
+# [0.0.10](https://github.com/mrmosssir/vue-roller-swiper/compare/v0.0.9...v0.0.10) (2025-11-05)
+
+### Features
+
+- **control:** add drag event ([91f3f7c](https://github.com/mrmosssir/vue-roller-swiper/commit/91f3f7c833393945a44552ef924a53c413f7c))
+
 ## [0.0.9](https://github.com/mrmosssir/vue-roller-swiper/compare/v0.0.8...v0.0.9) (2025-10-21)
 
 ### Performance Improvements

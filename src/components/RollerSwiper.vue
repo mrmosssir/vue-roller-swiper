@@ -45,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onBeforeMount, onBeforeUnmount, useSlots, watch } from "vue";
+import { ref, computed, onBeforeMount, onBeforeUnmount, useSlots } from "vue";
 import { useDraggable } from "@/composables/useDraggable";
 
 const props = defineProps({
