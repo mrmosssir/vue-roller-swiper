@@ -1,3 +1,10 @@
+## [0.0.12](https://github.com/mrmosssir/vue-roller-swiper/compare/v0.0.11...v0.0.12) (2025-11-07)
+
+
+### Bug Fixes
+
+* **build:** change publish position ([639078c](https://github.com/mrmosssir/vue-roller-swiper/commit/639078ceb9da146a90e2b69aa43824fb0f5049a9))
+
 ## [0.0.11](https://github.com/mrmosssir/vue-roller-swiper/compare/v0.0.10...v0.0.11) (2025-11-07)
 
 
