@@ -91,7 +91,7 @@ const animationDebounce = ref(false);
 const controlsDebounce = ref(false);
 const interval = ref<NodeJS.Timeout | null>(null);
 
-const sliderSlots = computed(() => {
+const sliderSlots = computed((): string[] => {
   return Object.keys(slots).filter((slot) => slot.startsWith("slider-"));
 });
 
