@@ -1,3 +1,18 @@
+## [0.0.11](https://github.com/mrmosssir/vue-roller-swiper/compare/v0.0.10...v0.0.11) (2025-11-07)
+
+
+### Bug Fixes
+
+* **build:** add always-auth ([edf57b4](https://github.com/mrmosssir/vue-roller-swiper/commit/edf57b408f8a54b968a84ab9fd2d4766fbc1c095))
+
+
+### Performance Improvements
+
+* **build:** update node version for github action ([6971208](https://github.com/mrmosssir/vue-roller-swiper/commit/6971208c039d8f6f74152494ac0670de5cb783c0))
+* **build:** update node version for github action ([d097a7e](https://github.com/mrmosssir/vue-roller-swiper/commit/d097a7e0afbf5ecb65aa2ce4a6e26f1c1cd700cf))
+* **security:** update package for security ([35f81eb](https://github.com/mrmosssir/vue-roller-swiper/commit/35f81ebf38a01bbea92b57f6f53ba4748d90a2a8))
+* **security:** use semantic-release run release pipeline for security ([57b2b62](https://github.com/mrmosssir/vue-roller-swiper/commit/57b2b62613e6d5babb4890558c1ebb0548d59944))
+
 # [0.0.10](https://github.com/mrmosssir/vue-roller-swiper/compare/v0.0.9...v0.0.10) (2025-11-05)
 
 ### Features
